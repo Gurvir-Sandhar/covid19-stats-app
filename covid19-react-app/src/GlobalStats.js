@@ -28,8 +28,6 @@ class GlobalStats extends React.Component {
         })
     }
 
-
-
     render() {
         if(!this.state.isLoaded) {
             return <div/>
@@ -40,10 +38,10 @@ class GlobalStats extends React.Component {
         let recovered = totalrecovered.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         return (
             <div className="global">
-                <h2>Global Statistics:</h2>
-                <h3>Total Conrfirmed Cases: {cases} </h3>   
-                <h3>Total Deaths: {deaths}</h3>
-                <h3>Total Recovered: {recovered}</h3>
+                <h2 id="globalh2">Global:</h2>
+                <h3>Total Conrfirmed Cases: <p>{cases}</p> </h3>   
+                <h3>Total Deaths: <p>{deaths}</p></h3>
+                <h3>Total Recovered: <p>{recovered}</p></h3>
             </div>
         );
     };   

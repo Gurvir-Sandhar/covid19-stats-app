@@ -1,5 +1,6 @@
 import React from "react";
 import GlobalStats from './GlobalStats.js';
+import CountryDD from './CountryDD.js';
 import './index.css';
 
 //main app code
@@ -39,9 +40,10 @@ class App extends React.Component {
         return (
             <div className="App">
                 <header className="header">
-                    <h1>COVID-19 STATISTICS</h1>
+                    <h1><b>COVID-19 STATISTICS</b></h1>
                 </header>
                 <GlobalStats data={global} />
+                <CountryDD data={countries} />
             </div>
         );
     };
