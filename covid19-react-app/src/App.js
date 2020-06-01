@@ -15,7 +15,7 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        const url = 'https://api.covid19api.com/summary'
+        const url = 'https://api.covid19api.com/summary';
 
         fetch(url)
         .then(response => response.json())
