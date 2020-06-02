@@ -34,18 +34,25 @@ class CountryDD extends React.Component {
 
     displayCountry() {
         var country = document.getElementById('country').value;
+
+        var parent = document.getElementById('parentChart');
+        var child = document.getElementById('CountryChart');
+        parent.removeChild(child);
+        parent.innerHTML='<canvas id="CountryChart" width="600" height="600"></canvas>';
         var ctx = document.getElementById('CountryChart');
+
         const myCountry = this.state.data.filter(x => x.Country == country);
         let cases = myCountry[0].TotalConfirmed;
         let recovered = myCountry[0].TotalRecovered;
         let deaths = myCountry[0].TotalDeaths;
-        console.log(myCountry);
+
+        //console.log(myCountry);
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: ['Total Cases', 'Recovered', 'Deaths'],
                 datasets: [{
-                    label: '# of People',
+                    label: `# of People (${country})`,
                     data: [cases, recovered, deaths],
                     backgroundColor: [
                         'rgba(54, 162, 235, 0.2)',
@@ -86,8 +93,9 @@ class CountryDD extends React.Component {
                 <select name="country" id="country" onChange={this.displayCountry}>
                     {countrylist}
                 </select>
-                <canvas id="CountryChart" width="600" height="600">
-                </canvas>
+                <div id="parentChart">
+                    <canvas id="CountryChart" width="600" height="600"></canvas>
+                </div>
             </div>
         );
     }
