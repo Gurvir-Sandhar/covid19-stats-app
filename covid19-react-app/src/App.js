@@ -1,6 +1,7 @@
 import React from "react";
 import GlobalStats from './GlobalStats.js';
 import CountryDD from './CountryDD.js';
+import Timeline from './Timeline.js';
 import './index.css';
 
 //main app code
@@ -36,14 +37,18 @@ class App extends React.Component {
         if(!this.state.isLoaded) {
             return <div/>
         }
+
         const {countries, global, isLoaded} = this.state;
         return (
             <div className="App">
                 <header className="header">
                     <h1><b>COVID-19 STATISTICS</b></h1>
                 </header>
-                <GlobalStats data={global} />
-                <CountryDD data={countries} />
+                <div className="components">
+                    <GlobalStats data={global} />
+                    <CountryDD data={countries} />
+                    {/*<Timeline />*/}
+                </div>
             </div>
         );
     };

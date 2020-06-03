@@ -39,9 +39,11 @@ class GlobalStats extends React.Component {
         return (
             <div className="global">
                 <h2 id="globalh2">Global:</h2>
-                <h3>Total Conrfirmed Cases: <p>{cases}</p> </h3>   
-                <h3>Total Deaths: <p>{deaths}</p></h3>
-                <h3>Total Recovered: <p>{recovered}</p></h3>
+                    <div className="h3container">
+                    <h3>Total Conrfirmed Cases: <p>{cases}</p> </h3>   
+                    <h3>Total Deaths: <p>{deaths}</p></h3>
+                    <h3>Total Recovered: <p>{recovered}</p></h3>
+                </div>
             </div>
         );
     };   
