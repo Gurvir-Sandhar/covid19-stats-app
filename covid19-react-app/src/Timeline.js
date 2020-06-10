@@ -126,8 +126,8 @@ class Timeline extends React.Component {
                      //do nothing
             }
         }
-        //console.log(selectedData[5].date)
-        //console.log(countries[this.props.data])
+        console.log(selectedData[5].date)
+        console.log(countries[this.props.data])
 
          //deletes previously rendered chart and and creates a new canvas for new chart
          let parent = document.getElementById('timeline');
