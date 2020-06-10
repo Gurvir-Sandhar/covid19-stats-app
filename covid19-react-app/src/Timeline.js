@@ -24,55 +24,128 @@ class Timeline extends React.Component {
                 countries: data,
                 isLoaded: true,
             })
+            this.displayChart();
         })
         .catch((error) => console.log(error));
     }
 
     displayChart() {
-         //chart code
          const {countries} = this.state;
-         //data for chart
-         let dates = [];
-         let cases = [];
-         let deaths = [];
- 
-         var x;
-         let i = 0;
-         for(x in countries.US){
-             dates[i] = countries.US[x].date;
-             cases[i] = countries.US[x].confirmed;
-             deaths[i] = countries.US[x].deaths;
-             i++;
+
+         let jan = {confirmed: NaN ,deaths: NaN};
+         let feb = {confirmed: NaN ,deaths: NaN};
+         let mar = {confirmed: NaN ,deaths: NaN};
+         let apr = {confirmed: NaN ,deaths: NaN};
+         let may = {confirmed: NaN ,deaths: NaN};
+         let jun = {confirmed: NaN ,deaths: NaN};
+         let jul = {confirmed: NaN ,deaths: NaN};
+         let aug = {confirmed: NaN ,deaths: NaN};
+         let sep = {confirmed: NaN ,deaths: NaN};
+         let oct = {confirmed: NaN ,deaths: NaN};
+         let nov = {confirmed: NaN ,deaths: NaN};
+         let dec = {confirmed: NaN ,deaths: NaN};
+
+         let selectedData;
+         if(this.props.data == "United States of America") {
+            selectedData = countries["US"];
          }
-         console.log(countries.US);
-         console.log(dates);
-         console.log(cases);
-         console.log(deaths);
-         
-         let parent = document.getElementsByClassName('timeline');
-         parent.innerHTML='<canvas id="linechart" width="600" height="600"></canvas>';
+         else {
+            selectedData = countries[this.props.data]; 
+         }
+
+         var y;
+         for(y in selectedData){
+            let date = selectedData[y].date;
+             switch(date){
+                 case "2020-1-31":
+                     jan.confirmed = selectedData[y].confirmed;
+                     jan.deaths  = selectedData[y].deaths;
+                     break;
+                 case "2020-2-28":
+                     feb.confirmed = selectedData[y].confirmed;
+                     feb.deaths = selectedData[y].deaths;
+                     break;
+                 case "2020-2-29":
+                     feb.confirmed = selectedData[y].confirmed;
+                     feb.deaths = selectedData[y].deaths;
+                     break;
+                 case "2020-3-31":
+                     mar.confirmed = selectedData[y].confirmed;
+                     mar.deaths = selectedData[y].deaths;
+                     break;
+                 case "2020-4-30":
+                     apr.confirmed = selectedData[y].confirmed;
+                     apr.deaths = selectedData[y].deaths;
+                     break;
+                 case "2020-5-31":
+                     may.confirmed = selectedData[y].confirmed;
+                     may.deaths = selectedData[y].deaths;
+                     break;
+                 case "2020-6-30":
+                     jun.confirmed = selectedData[y].confirmed;
+                     jun.deaths = selectedData[y].deaths;
+                     break;
+                 case "2020-7-31":
+                     jul.confirmed = selectedData[y].confirmed;
+                     jul.deaths = selectedData[y].deaths;
+                     break;
+                 case "2020-8-31":
+                     aug.confirmed = selectedData[y].confirmed;
+                     aug.deaths = selectedData[y].deaths;
+                     break;
+                 case "2020-9-30":
+                     sep.confirmed = selectedData[y].confirmed;
+                     sep.deaths = selectedData[y].deaths;
+                     break;
+                 case "2020-10-31":
+                     oct.confirmed = selectedData[y].confirmed;
+                     oct.deaths = selectedData[y].deaths;
+                     break;
+                 case "2020-11-30":
+                     nov.confirmed = selectedData[y].confirmed;
+                     nov.deaths = selectedData[y].deaths;
+                     break;
+                 case "2020-12-31":
+                     dec.confirmed = selectedData[y].confirmed;
+                     dec.deaths = selectedData[y].deaths;
+                     break;
+                 default:
+                     //do nothing
+            }
+        }
+        console.log(selectedData[5].date)
+        console.log(countries[this.props.data])
+
+         let parent = document.getElementById('timeline');
+         let child = document.getElementById('linechart');
+         parent.removeChild(child);
+         parent.innerHTML = '<canvas id="linechart"></canvas>';
          let ctx = document.getElementById('linechart');
+
          var myChart = new Chart(ctx, {
              type: 'line',
              data: {
-                 labels: dates,
+                 labels: ["Jan.", "Feb.", "Mar.", "Apr.", "May", "Jun.", "Jul.", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."],
                  datasets: [{
-                     label: "Cases",
-                     data: cases,
+                     label: "Total Cases" ,
+                     data: [jan.confirmed, feb.confirmed, mar.confirmed, apr.confirmed, may.confirmed, jun.confirmed, jul.confirmed, 
+                            aug.confirmed, sep.confirmed, oct.confirmed, nov.confirmed, dec.confirmed],
                      borderColor: "#3e95cd",
                      fill: false
                  },
                  {
-                     label: "Deaths",
-                     data: deaths,
-                     borderColor: "#8e5ea2",
+                     label: "Total Deaths",
+                     data: [jan.deaths, feb.deaths, mar.deaths, apr.deaths, may.deaths, jun.deaths, jul.deaths, aug.deaths,
+                            sep.deaths, oct.deaths, nov.deaths, dec.deaths],
+                     borderColor: "rgba(255, 99, 132, 1)",
                      fill: false
                  }]
              },
              options: {
+                 spanGaps: true,
                  title: {
                      display: true,
-                     text: "timeline"
+                     text: `COVID-19 2020 Growth (${this.props.data})`
                  }
              }
          });//end chart 
@@ -82,107 +155,10 @@ class Timeline extends React.Component {
         if(!this.state.isLoaded){
             return <div/>
         }
-        
-        const {countries} = this.state;
-        let dates = [];
-        let cases = [];
-        let deaths = [];
-
-        var x;
-        let i = 0;
-        for(x in countries.US){
-            dates[i] = countries.US[x].date;
-            cases[i] = countries.US[x].confirmed;
-            deaths[i] = countries.US[x].deaths;
-            i++;
-        }
-
-        let jan = {confirmed: 0 ,deaths: 0};
-        let feb = {confirmed: 0 ,deaths: 0};
-        let mar = {confirmed: 0 ,deaths: 0};
-        let apr = {confirmed: 0 ,deaths: 0};
-        let may = {confirmed: 0 ,deaths: 0};
-        let jun = {confirmed: 0 ,deaths: 0};
-        let jul = {confirmed: 0 ,deaths: 0};
-        let aug = {confirmed: 0 ,deaths: 0};
-        let sep = {confirmed: 0 ,deaths: 0};
-        let oct = {confirmed: 0 ,deaths: 0};
-        let nov = {confirmed: 0 ,deaths: 0};
-        let dec = {confirmed: 0 ,deaths: 0};
-
-        var y;
-        for(y in dates){
-            //string manipulation to get month
-            let str = dates[y].substring(5);  
-            let pos = str.search('-');
-            let month = str.substring(0,pos);
-            let num = parseInt(month)
-
-            switch(num){
-                case 1:
-                    jan.confirmed += cases[y];
-                    jan.deaths += deaths[y];
-                    break;
-                case 2:
-                    feb.confirmed += cases[y];
-                    feb.deaths =+ deaths[y];
-                    break;
-                case 3:
-                    mar.confirmed += cases[y];
-                    mar.deaths += deaths[y];
-                    break;
-                case 4:
-                    apr.confirmed += cases[y];
-                    apr.deaths += deaths[y];
-                    break;
-                case 5:
-                    may.confirmed += cases[y];
-                    may.deaths += deaths[y];
-                    break;
-                case 6:
-                    jun.confirmed += cases[y];
-                    jun.deaths += deaths[y];
-                    break;
-                case 7:
-                    jul.confirmed += cases[y];
-                    jul.deaths += deaths[y];
-                    break;
-                case 8:
-                    aug.confirmed += cases[y];
-                    aug.deaths += deaths[y];
-                    break;
-                case 9:
-                    sep.confirmed += cases[y];
-                    sep.deaths += deaths[y];
-                    break;
-                case 10:
-                    oct.confirmed += cases[y];
-                    oct.deaths += deaths[y];
-                    break;
-                case 11:
-                    nov.confirmed += cases[y];
-                    nov.deaths += deaths[y];
-                    break;
-                case 12:
-                    dec.confirmed += cases[y];
-                    dec.deaths += deaths[y];
-                    break;
-                default:
-                    console.log("unexpected month value");
-            }
-        }
-        console.log(jan);
-        console.log(dec);
-        console.log(jun);
-
-
-        console.log(countries.US);
-        //console.log(dates);
-
-
+       
         return (
-            <div className="timeline">
-
+            <div id="timeline">
+                <canvas id="linechart"></canvas>
             </div>
         )
     }

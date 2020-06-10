@@ -1,5 +1,6 @@
 import React from "react";
 import Chart from 'chart.js';
+import Timeline from './Timeline.js';
 import './index.css';
 
 //drop down menu to choose country and render a chart of data for that country
@@ -9,6 +10,7 @@ class CountryDD extends React.Component {
         this.state = {
             names: [],
             data: [],
+            countryVal: "",
             isLoaded: false,
         };
 
@@ -34,11 +36,15 @@ class CountryDD extends React.Component {
 
     displayCountry() {
         var country = document.getElementById('country').value;
+        
+        this.setState ({
+            countryVal: country,
+        })
 
         var parent = document.getElementById('parentChart');
         var child = document.getElementById('CountryChart');
         parent.removeChild(child);
-        parent.innerHTML='<canvas id="CountryChart" width="400" height="400"></canvas>';
+        parent.innerHTML='<canvas id="CountryChart"></canvas>';
         var ctx = document.getElementById('CountryChart');
 
         const myCountry = this.state.data.filter(x => x.Country === country);
@@ -94,8 +100,9 @@ class CountryDD extends React.Component {
                     {countrylist}
                 </select>
                 <div id="parentChart">
-                    <canvas id="CountryChart" width="400" height="400"></canvas>
+                    <canvas id="CountryChart"></canvas>
                 </div>
+                <Timeline key={this.state.countryVal} data={this.state.countryVal}/>
             </div>
         );
     }

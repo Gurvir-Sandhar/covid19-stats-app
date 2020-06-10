@@ -1,7 +1,6 @@
 import React from "react";
 import GlobalStats from './GlobalStats.js';
 import CountryDD from './CountryDD.js';
-import Timeline from './Timeline.js';
 import './index.css';
 
 //main app code
@@ -47,7 +46,6 @@ class App extends React.Component {
                 <div className="components">
                     <GlobalStats data={global} />
                     <CountryDD data={countries} />
-                    {/*<Timeline />*/}
                 </div>
             </div>
         );
