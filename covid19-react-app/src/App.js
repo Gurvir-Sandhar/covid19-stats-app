@@ -3,7 +3,11 @@ import GlobalStats from './GlobalStats.js';
 import CountryDD from './CountryDD.js';
 import './index.css';
 
-//main app code
+//
+// -App component is main entry point for project
+// -makes api call for Global and individual country data
+// -passes data to CountryDD and GlobalStats component
+//
 class App extends React.Component {
     constructor(props) {
         super(props);

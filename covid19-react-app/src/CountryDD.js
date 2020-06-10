@@ -3,7 +3,11 @@ import Chart from 'chart.js';
 import Timeline from './Timeline.js';
 import './index.css';
 
-//drop down menu to choose country and render a chart of data for that country
+// -CountryDD takes in individual country data as props
+// -creates a drop down menu of all countries
+// -called from App.js in render function
+// -passes data to Timeline component 
+//  
 class CountryDD extends React.Component {
     constructor(props) {
         super(props);
@@ -18,7 +22,8 @@ class CountryDD extends React.Component {
     }
 
     componentDidMount() {
-        //console.log(this.props.data);
+        //using prop data to create new array of country names
+        //to use for the drop down menu
         let i = 0;
         var x;
         let temp = [];
@@ -31,28 +36,31 @@ class CountryDD extends React.Component {
             names: temp,
             isLoaded: true,
         })
-        //console.log(this.state.data);
     }
 
     displayCountry() {
+        //get selected country from drop down
         var country = document.getElementById('country').value;
         
         this.setState ({
             countryVal: country,
         })
 
+        //deletes any previously rendered chart 
+        //and creates new canvas for new chart
         var parent = document.getElementById('parentChart');
         var child = document.getElementById('CountryChart');
         parent.removeChild(child);
         parent.innerHTML='<canvas id="CountryChart"></canvas>';
         var ctx = document.getElementById('CountryChart');
 
+        //setting up data to use in chart
         const myCountry = this.state.data.filter(x => x.Country === country);
         let cases = myCountry[0].TotalConfirmed;
         let recovered = myCountry[0].TotalRecovered;
         let deaths = myCountry[0].TotalDeaths;
 
-        //console.log(myCountry);
+        //create chart
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
@@ -83,7 +91,7 @@ class CountryDD extends React.Component {
                 }
             }
         }); 
-    }//end displayCountry()
+    }
 
     render() {
         const {names, isLoaded} = this.state;

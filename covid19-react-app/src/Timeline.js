@@ -2,6 +2,11 @@ import React from 'react';
 import Chart from 'chart.js'
 import './index.css';
 
+//
+// -Timeline makes api call for daily data
+// -takes in value of selected country as prop
+// -creates line chart of monthly increase in cases/deaths
+//
 class Timeline extends React.Component {
     constructor(props) {
         super(props);
@@ -32,6 +37,9 @@ class Timeline extends React.Component {
     displayChart() {
          const {countries} = this.state;
 
+         //objects to keep track of data for selected country.
+         //initialized with NaN values so chart does not plot
+         //zero values.
          let jan = {confirmed: NaN ,deaths: NaN};
          let feb = {confirmed: NaN ,deaths: NaN};
          let mar = {confirmed: NaN ,deaths: NaN};
@@ -46,13 +54,18 @@ class Timeline extends React.Component {
          let dec = {confirmed: NaN ,deaths: NaN};
 
          let selectedData;
+         //get data for selected country
          if(this.props.data == "United States of America") {
+         //special case since we are using 2 different apis and the drop
+         //down menu country names do not all match with this apis names.
+         //problem occurs with mutli-worded countries, but not all.
             selectedData = countries["US"];
          }
          else {
             selectedData = countries[this.props.data]; 
          }
 
+         //go through selected data and find end of month totals 
          var y;
          for(y in selectedData){
             let date = selectedData[y].date;
@@ -113,15 +126,17 @@ class Timeline extends React.Component {
                      //do nothing
             }
         }
-        console.log(selectedData[5].date)
-        console.log(countries[this.props.data])
+        //console.log(selectedData[5].date)
+        //console.log(countries[this.props.data])
 
+         //deletes previously rendered chart and and creates a new canvas for new chart
          let parent = document.getElementById('timeline');
          let child = document.getElementById('linechart');
          parent.removeChild(child);
          parent.innerHTML = '<canvas id="linechart"></canvas>';
          let ctx = document.getElementById('linechart');
 
+         //creates chart
          var myChart = new Chart(ctx, {
              type: 'line',
              data: {
@@ -148,7 +163,7 @@ class Timeline extends React.Component {
                      text: `COVID-19 2020 Growth (${this.props.data})`
                  }
              }
-         });//end chart 
+         });
     }
 
     render() {

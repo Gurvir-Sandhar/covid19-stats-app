@@ -1,7 +1,11 @@
 import React from "react";
 import './index.css';
 
-//outputs world wide stats
+//
+// -GlobalStats takes in global data as props 
+// -outputs total cases, recovered, and deaths 
+// -called from App.js render function
+//
 class GlobalStats extends React.Component {
     constructor(props) {
         super(props);
@@ -11,7 +15,6 @@ class GlobalStats extends React.Component {
             totaldeaths: 0,
             totalrecovered: 0,
             isLoaded: false,
-        
         };
     }
 
@@ -33,6 +36,7 @@ class GlobalStats extends React.Component {
             return <div/>
         }
         const {totalcases, totaldeaths, totalrecovered} = this.state;
+        //format numbers with commas
         let cases = totalcases.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         let deaths = totaldeaths.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         let recovered = totalrecovered.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
